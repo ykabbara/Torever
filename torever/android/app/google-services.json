@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "597353565221",
+    "firebase_url": "https://torever-flutter.firebaseio.com",
+    "project_id": "torever-flutter",
+    "storage_bucket": "torever-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597353565221:android:d74e46f272a80c12",
+        "android_client_info": {
+          "package_name": "com.torever.torever"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597353565221-fr5f6hipt4s0tcj4fc81f2cp7epfr6lg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHki4xP-KXEPGrbhM5xmqK4HrwQSZ6Kms"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

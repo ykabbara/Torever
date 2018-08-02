@@ -21,11 +21,17 @@ class _LoginPageState extends State<LoginPage> {
     return false;
   }
 
-  void validateAndSubmit(){
-    if(validateAndSave()){
-
+  void validateAndSubmit() async {
+    if (validateAndSave()) {
+      try{
+        FirebaseUser user = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+        print('${user.uid} Signed In.');
+      }
+      catch (e){
+        print('Login Error: $e');
+      }
     }
-
   }
 
   @override
