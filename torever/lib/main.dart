@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'LoginPage.dart';
 import 'auth.dart';
 import 'rootPage.dart';
 
-void main(){
-  runApp(MyApp());
+void main() {
+  runApp(new MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(
-      title: 'Torever',
-      home: RootPage(auth: Auth()),
+
+    return new MaterialApp(
+        title: 'Flutter login demo',
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: RootPage(auth: new Auth())
     );
   }
 }

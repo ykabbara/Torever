@@ -3,26 +3,30 @@ import 'auth.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth, this.onSignedIn});
-
   final BaseAuth auth;
-final VoidCallback onSignedIn;
+  final VoidCallback onSignedIn;
+
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
+  State<StatefulWidget> createState() => new _LoginPageState();
 }
 
-enum FormType { login, register }
+enum FormType {
+  login,
+  register
+}
 
 class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
+
+  final formKey = new GlobalKey<FormState>();
 
   String _email;
   String _password;
   FormType _formType = FormType.login;
 
   bool validateAndSave() {
-    final from = formKey.currentState;
-    if (from.validate()) {
-      from.save();
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
       return true;
     }
     return false;
@@ -32,17 +36,16 @@ class _LoginPageState extends State<LoginPage> {
     if (validateAndSave()) {
       try {
         if (_formType == FormType.login) {
-          String userId =
-              await widget.auth.signInWithEmailAndPassword(_email, _password);
-          print('$userId Signed In.');
+          String userId = await widget.auth.signInWithEmailAndPassword(_email, _password);
+          print('Signed in: $userId');
         } else {
-          String userID = await widget.auth
-              .createUserWithEmailAndPassword(_email, _password);
-          print('$userID Registered.');
+          String userId = await widget.auth.createUserWithEmailAndPassword(_email, _password);
+          print('Registered user: $userId');
         }
         widget.onSignedIn();
-      } catch (e) {
-        print('Login Error: $e');
+      }
+      catch (e) {
+        print('Error: $e');
       }
     }
   }
@@ -61,47 +64,36 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget buildAppBar() {
-    if (_formType == FormType.login) {
-      return Text('Login');
-    } else {
-      return Text('Register');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: buildAppBar(),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: buildInput() + buildSubmitButtons(),
-          ),
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Flutter login demo'),
         ),
-      ),
+        body: new Container(
+            padding: EdgeInsets.all(16.0),
+            child: new Form(
+              key: formKey,
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: buildInputs() + buildSubmitButtons(),
+              ),
+            )
+        )
     );
   }
 
-  List<Widget> buildInput() {
+  List<Widget> buildInputs() {
     return [
-      TextFormField(
-        decoration: InputDecoration(labelText: 'Email'),
-        validator: (value) => value.isEmpty ? 'Email cannot be empty' : null,
+      new TextFormField(
+        decoration: new InputDecoration(labelText: 'Email'),
+        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
         onSaved: (value) => _email = value,
       ),
-      TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Password',
-        ),
+      new TextFormField(
+        decoration: new InputDecoration(labelText: 'Password'),
         obscureText: true,
-        validator: (value) => value.isEmpty ? 'Password cannot be empty' : null,
+        validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
         onSaved: (value) => _password = value,
       ),
     ];
@@ -110,24 +102,24 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return [
-        RaisedButton(
+        new RaisedButton(
+          child: new Text('Login', style: new TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
-          child: Text('Login'),
         ),
-        FlatButton(
+        new FlatButton(
+          child: new Text('Create an account', style: new TextStyle(fontSize: 20.0)),
           onPressed: moveToRegister,
-          child: Text('Create an account'),
         ),
       ];
     } else {
       return [
-        RaisedButton(
+        new RaisedButton(
+          child: new Text('Create an account', style: new TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
-          child: Text('Register'),
         ),
-        FlatButton(
+        new FlatButton(
+          child: new Text('Have an account? Login', style: new TextStyle(fontSize: 20.0)),
           onPressed: moveToLogin,
-          child: Text('I already have an account'),
         ),
       ];
     }
