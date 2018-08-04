@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 import 'auth.dart';
+import 'rootPage.dart';
 
 void main(){
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget{
     // TODO: implement build
     return MaterialApp(
       title: 'Torever',
-      home: LoginPage(auth: Auth()),
+      home: RootPage(auth: Auth()),
     );
   }
 }
