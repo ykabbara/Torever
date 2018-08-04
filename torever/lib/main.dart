@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
+import 'auth.dart';
 
 void main(){
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget{
     // TODO: implement build
     return MaterialApp(
       title: 'Torever',
-      home: LoginPage(),
+      home: LoginPage(auth: Auth()),
     );
   }
 }

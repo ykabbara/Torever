@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'auth.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({this.auth});
+
+  final BaseAuth auth;
+
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
@@ -27,15 +31,14 @@ class _LoginPageState extends State<LoginPage> {
   void validateAndSubmit() async {
     if (validateAndSave()) {
       try {
-        if(_formType == FormType.login) {
-          FirebaseUser user = await FirebaseAuth.instance
-              .signInWithEmailAndPassword(email: _email, password: _password);
-          print('${user.uid} Signed In.');
+        if (_formType == FormType.login) {
+          String userId =
+              await widget.auth.signInWithEmailAndPassword(_email, _password);
+          print('$userId Signed In.');
         } else {
-          FirebaseUser user = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: _email, password: _password);
-          print('${user.uid} Registered.');
-
+          String userID = await widget.auth
+              .createUserWithEmailAndPassword(_email, _password);
+          print('$userID Registered.');
         }
       } catch (e) {
         print('Login Error: $e');
@@ -57,21 +60,20 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget buildAppBar(){
-    if(_formType == FormType.login){
+  Widget buildAppBar() {
+    if (_formType == FormType.login) {
       return Text('Login');
     } else {
       return Text('Register');
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title:buildAppBar(),
+        title: buildAppBar(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -105,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   List<Widget> buildSubmitButtons() {
-    if(_formType == FormType.login) {
+    if (_formType == FormType.login) {
       return [
         RaisedButton(
           onPressed: validateAndSubmit,
