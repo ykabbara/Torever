@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'LoginPage.dart';
+import 'splashPage.dart';
 
 void main(){
   runApp(MyApp());
@@ -8,10 +8,9 @@ void main(){
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       title: 'Torever',
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }
